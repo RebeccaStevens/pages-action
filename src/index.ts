@@ -15,6 +15,7 @@ try {
 	const directory = getInput("directory", { required: true });
 	const gitHubToken = getInput("gitHubToken", { required: false });
 	const branch = getInput("branch", { required: false });
+	const compatibilityFlags = getInput("compatibilityFlags", { required: false });
 	const workingDirectory = getInput("workingDirectory", { required: false });
 	const wranglerVersion = getInput("wranglerVersion", { required: false });
 
@@ -46,7 +47,7 @@ try {
       $ export CLOUDFLARE_ACCOUNT_ID="${accountId}"
     }
   
-    $$ npx wrangler@${wranglerVersion} pages publish "${directory}" --project-name="${projectName}" --branch="${branch}"
+    $$ npx wrangler@${wranglerVersion} pages publish "${directory}" --project-name="${projectName}" --branch="${branch}" --compatibility-flags="${compatibilityFlags}"
     `;
 
 		const response = await fetch(
