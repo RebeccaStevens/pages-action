@@ -40,6 +40,8 @@ try {
 	};
 
 	const createPagesDeployment = async () => {
+		const command = Number.parseInt(wranglerVersion, 10) >= 3 ? "deploy" : "publish";
+
 		// TODO: Replace this with an API call to wrangler so we can get back a full deployment response object
 		await shellac.in(path.join(process.cwd(), workingDirectory))`
     $ export CLOUDFLARE_API_TOKEN="${apiToken}"
@@ -47,7 +49,7 @@ try {
       $ export CLOUDFLARE_ACCOUNT_ID="${accountId}"
     }
   
-    $$ npx wrangler@${wranglerVersion} pages publish "${directory}" --project-name="${projectName}" --branch="${branch}" --compatibility-flags="${compatibilityFlags}"
+    $$ npx wrangler@${wranglerVersion} pages ${command} "${directory}" --project-name="${projectName}" --branch="${branch}" --compatibility-flags="${compatibilityFlags}"
     `;
 
 		const response = await fetch(
